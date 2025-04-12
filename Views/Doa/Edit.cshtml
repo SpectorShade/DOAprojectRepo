@@ -1,0 +1,35 @@
+﻿@model _211426_FinalProjectDOA.Models.Character
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<head>
+
+</head>
+<h2>Edit Character</h2>
+
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Picture" class="control-label"></label>
+        <input asp-for="Picture" class="form-control" />
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

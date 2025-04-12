@@ -1,0 +1,44 @@
+﻿@model _211426_FinalProjectDOA.Models.Move
+
+@{
+    ViewData["Title"] = "Delete Move";
+}
+
+<head>
+
+</head>
+
+<h1>Delete Move</h1>
+<hr />
+
+<div>
+    <h4>Are you sure you want to delete this move?</h4>
+    <dl class="dl-horizontal">
+        <dt>Name</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Input</dt>
+        <dd>@Model.Input</dd>
+
+        <dt>Startup</dt>
+        <dd>@Model.Startup</dd>
+
+        <dt>Active</dt>
+        <dd>@Model.Active</dd>
+
+        <dt>Recovery</dt>
+        <dd>@Model.Recovery</dd>
+
+        <dt>Accumulated Startup</dt>
+        <dd>@Model.AccumulatedStartup</dd>
+
+        <dt>Block Advantage</dt>
+        <dd>@Model.BlockAdvantage</dd>
+    </dl>
+
+    <form asp-action="DeleteMove">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+        <a href="@Url.Action("AddMove", new { characterId = Model.CharacterId })" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

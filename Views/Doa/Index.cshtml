@@ -1,0 +1,118 @@
+﻿@model _211426_FinalProjectDOA.ViewModels.SearchVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<head>
+    <style>
+        /* General Button Styling */
+        .character-action-button {
+            padding: 12px 24px; /* More padding inside the button */
+            font-size: 16px; /* Adjust the font size */
+            border: none;
+            border-radius: 5px;
+            margin: 5px; /* Adds space between buttons */
+            text-align: center; /* Centers the text */
+            display: inline-block; /* Ensures buttons are inline */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Hover effects */
+        }
+
+        /* Red Button for 'Calculate Unholdables' */
+        .calculate-unholdables-button {
+            background-color: #dc3545; /* Red background */
+            color: white; /* White text */
+        }
+
+            .calculate-unholdables-button:hover {
+                background-color: #c82333; /* Darker red when hovered */
+                transform: translateY(-2px); /* Slight lift effect on hover */
+            }
+
+        /* Blue Buttons for the other actions */
+        .character-action-button:not(.calculate-unholdables-button) {
+            background-color: #007bff; /* Blue background */
+            color: white; /* White text */
+        }
+
+            .character-action-button:not(.calculate-unholdables-button):hover {
+                background-color: #0056b3; /* Darker blue on hover */
+                transform: translateY(-2px); /* Slight lift effect on hover */
+            }
+
+        /* Flexbox for better button spacing */
+        .button-container {
+            display: flex;
+            justify-content: space-evenly; /* Spreads out the buttons evenly */
+            gap: 10px; /* Adds more space between the buttons */
+        }
+    </style>
+</head>
+
+<h1>Character Index</h1>
+
+<p>
+    @* @if (User.IsInRole("Admin"))
+    {
+
+    } *@
+    <a asp-action="Create">Create New Character</a>
+</p>
+
+<!-- Search form -->
+<form asp-controller="Doa" asp-action="Index" method="get">
+    <p>
+        Search Character: <input type="text" name="sChar" value="@Model.sChar" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<!-- Characters Table -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var character in Model.theCharacters)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(character.Picture))
+                    {
+                        <img src="~/images/@character.Picture" width="100" height="auto" />
+                    }
+                </td>
+                <td>@Html.DisplayFor(modelItem => character.Name)</td>
+                <td>
+                    <div class="button-container">
+                        <a asp-action="CalculateUnholdables" asp-route-id="@character.Id" class="character-action-button calculate-unholdables-button">
+                            Calculate Unholdables
+                        </a>
+
+
+                        @* @if (User.IsInRole("Admin"))
+                    {
+
+                    } *@
+
+                        <a asp-action="AddMove" asp-route-characterId="@character.Id" class="character-action-button">
+                            Add Move
+                        </a>
+
+                        <a asp-action="Edit" asp-route-id="@character.Id" class="character-action-button">
+                            Edit
+                        </a>
+
+                        <a asp-action="Delete" asp-route-id="@character.Id" class="character-action-button">
+                            Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

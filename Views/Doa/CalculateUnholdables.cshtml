@@ -1,0 +1,84 @@
+﻿@model List<List<_211426_FinalProjectDOA.ViewModels.MoveVM>>
+
+@{
+    ViewData["Title"] = "Calculate Unholdables";
+}
+
+<head>
+
+</head>
+
+<h1>Calculate Unholdables</h1>
+
+<form method="get" asp-action="CalculateUnholdables">
+    <div class="form-group">
+        <label for="characterId">Character</label>
+        <select name="characterId" id="characterId" class="form-control" required>
+            @foreach (var character in (List<Character>)ViewBag.Characters)
+            {
+                <option value="@character.Id">@character.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="frameAdvantage">Frame Advantage</label>
+        <input type="number" name="frameAdvantage" id="frameAdvantage" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Calculate" class="btn btn-primary" />
+    </div>
+</form>
+
+
+@if (ViewBag.Message != null)
+{
+    <p>@ViewBag.Message</p>
+}
+
+@if (Model != null && Model.Any())
+{
+    <h2>Valid Move Combinations</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Move Combination</th>
+                <th>Inputs</th>
+                <th>Block Advantage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var combination in Model)
+            {
+                <tr>
+                    <td>
+                        @foreach (var move in combination)
+                        {
+                            @move.Name
+                            @if (combination.IndexOf(move) < combination.Count - 1)
+                            {
+                                @:,
+                            }
+                        }
+                    </td>
+                    <td>
+                        @foreach (var move in combination)
+                        {
+                            @move.Input
+                            @if (combination.IndexOf(move) < combination.Count - 1)
+                            {
+                                @:,
+                            }
+                        }
+                    </td>
+                    <td>
+                        @combination.Last().BlockAdvantage
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No valid move combinations found.</p>
+}

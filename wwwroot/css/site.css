@@ -1,0 +1,124 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+* Overall Background and Text Color */
+body {
+    background-color: black; /* Black background for the whole page */
+    color: white; /* White text for general content */
+    font-size: 18px; /* Default font size */
+    margin-bottom: 60px; /* Margin for sticky footer */
+}
+
+/* Header Styles */
+h1, h2, h3, h4, h5, h6 {
+    color: #ff3b3f; /* Bright red headers */
+    font-weight: bold; /* Bold for emphasis */
+    font-size: 1.5em; /* Increase header size */
+    text-transform: uppercase; /* Make headers more impactful */
+}
+
+/* Links */
+a {
+    color: #0366d6; /* Default blue link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+    a:hover, a:focus {
+        color: #ff3b3f; /* Change to red on hover */
+        text-decoration: underline; /* Underline on hover */
+    }
+
+    /* Navbar Brand */
+    a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+        font-size: 1.8rem; /* Larger font size for navbar brand */
+        color: white; /* White navbar brand */
+        font-weight: bold; /* Bold for emphasis */
+    }
+
+/* Button Primary */
+.btn-primary {
+    color: white;
+    background-color: #ff3b3f; /* Red background for buttons */
+    border-color: #ff1c1f; /* Darker red border */
+    text-transform: uppercase; /* Uppercase button text */
+    font-weight: bold; /* Bold button text */
+}
+
+    .btn-primary:hover {
+        background-color: #e02a2d; /* Slightly darker red on hover */
+        border-color: #cc2226; /* Darker border on hover */
+    }
+
+/* Active Nav Pills */
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff; /* White text for active nav links */
+    background-color: #ff3b3f; /* Red background for active links */
+    border-color: #cc2226; /* Darker border for active links */
+}
+
+/* Text Elements */
+p, li, span, .content-text {
+    font-size: 1.25em; /* Make non-header text 25% larger */
+    line-height: 1.6; /* Better line height for readability */
+    color: white; /* Ensure text is white */
+}
+
+/* Box Shadows for Depth */
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .1); /* Slight shadow for elements */
+}
+
+/* Responsive Text Size for Larger Screens */
+@media (min-width: 768px) {
+    body {
+        font-size: 20px; /* Increase base font size on larger screens */
+    }
+
+    h1 {
+        font-size: 2.5em; /* Larger header size on bigger screens */
+    }
+
+}
+
+.main-container {
+    background-color: #000; /* black background */
+    color: #ff0000; /* red text */
+    border: 2px solid white; /* white border/margin */
+    padding: 20px; /* add space inside */
+    border-radius: 10px; /* optional: rounded corners */
+}
+
+.footer-custom {
+    background-color: #000;
+    color: #ff0000;
+    border-top: 2px solid white;
+}
+
+.custom-navbar {
+    background-color: black;
+    border: 2px solid white;
+}
+
+.custom-navbar .navbar-brand,
+.custom-navbar .nav-link {
+    color: red !important;
+}
+
+.custom-navbar .nav-link:hover {
+    color: white !important;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    border-top: 2px solid white;
+    padding: 10px;
+    font-weight: bold;
+}

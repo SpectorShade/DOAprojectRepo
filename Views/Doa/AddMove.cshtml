@@ -1,0 +1,90 @@
+﻿@model _211426_FinalProjectDOA.Models.Move
+
+@{
+    ViewData["Title"] = "Add Move";
+}
+
+<head>
+
+</head>
+
+<h1>Add Move for @ViewBag.CharacterName</h1>
+
+<form asp-action="AddMove" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <!-- Hidden field to store CharacterId -->
+        <input type="hidden" name="CharacterId" value="@ViewBag.CharacterId" />
+
+        <!-- Input field for move name -->
+        <label for="Name">Move Name</label>
+        <input type="text" id="Name" name="Name" class="form-control" required />
+
+        <!-- Input field for move input notation (e.g., "6P", "P+K") -->
+        <label for="Input">Input</label>
+        <input type="text" id="Input" name="Input" class="form-control" required />
+
+        <!-- Input field for move startup frames -->
+        <label for="Startup">Startup Frames</label>
+        <input type="number" id="Startup" name="Startup" class="form-control" required />
+
+        <!-- Input field for move active frames -->
+        <label for="Active">Active Frames</label>
+        <input type="number" id="Active" name="Active" class="form-control" required />
+
+        <!-- Input field for move recovery frames -->
+        <label for="Recovery">Recovery Frames</label>
+        <input type="number" id="Recovery" name="Recovery" class="form-control" required />
+
+        <!-- Input field for accumulated startup frames -->
+        <label for="AccumulatedStartup">Accumulated Startup Frames</label>
+        <input type="number" id="AccumulatedStartup" name="AccumulatedStartup" class="form-control" required />
+
+        <!-- Input field for block advantage -->
+        <label for="BlockAdvantage">Block Advantage</label>
+        <input type="number" id="BlockAdvantage" name="BlockAdvantage" class="form-control" required />
+
+        <button type="submit" class="btn btn-primary">Add Move</button>
+    </div>
+</form>
+
+<!-- List of the character's existing moves -->
+<h2>Current Moves for @ViewBag.CharacterName</h2>
+@if (ViewBag.Moves != null && ViewBag.Moves.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Input</th>
+                <th>Startup</th>
+                <th>Active</th>
+                <th>Recovery</th>
+                <th>Accumulated Startup</th>
+                <th>Block Advantage</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var move in ViewBag.Moves)
+            {
+                <tr>
+                    <td>@move.Name</td>
+                    <td>@move.Input</td>
+                    <td>@move.Startup</td>
+                    <td>@move.Active</td>
+                    <td>@move.Recovery</td>
+                    <td>@move.AccumulatedStartup</td>
+                    <td>@move.BlockAdvantage</td>
+                    <td>
+                        <a asp-action="EditMove" asp-route-id="@move.Id" class="btn btn-warning">Edit</a>
+                        <a asp-action="DeleteMove" asp-route-id="@move.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No moves found for this character.</p>
+}

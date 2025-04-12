@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <style>
+        body {
+            background-color: black; /* Set the background to black */
+            color: white; /* Set text color to white for contrast */
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            text-align: center; /* Center the text */
+        }
+
+        .image-container {
+            max-width: 90%; /* Ensure the image doesn't overflow */
+            max-height: 90%; /* Ensure the image doesn't overflow */
+        }
+
+            .image-container img {
+                width: 100%; /* Make the image take full width */
+                height: auto; /* Keep the aspect ratio */
+                max-width: 600px; /* Limit the max width */
+            }
+
+        h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+        }
+
+        p {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-container">
+        <!-- Replace the URL with the path to your image -->
+        <img src="images/logo_index.png" alt="Centered Image">
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@model _211426_FinalProjectDOA.Models.Move
+
+@{
+    ViewData["Title"] = "Edit Move";
+}
+<head>
+
+    
+</head>
+
+<h1>Edit Move for @ViewBag.CharacterName</h1>
+
+<h4>Move</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditMove" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" asp-for="CharacterId" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input" class="control-label"></label>
+                <input asp-for="Input" class="form-control" />
+                <span asp-validation-for="Input" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Startup" class="control-label"></label>
+                <input asp-for="Startup" class="form-control" />
+                <span asp-validation-for="Startup" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Active" class="control-label"></label>
+                <input asp-for="Active" class="form-control" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Recovery" class="control-label"></label>
+                <input asp-for="Recovery" class="form-control" />
+                <span asp-validation-for="Recovery" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AccumulatedStartup" class="control-label"></label>
+                <input asp-for="AccumulatedStartup" class="form-control" />
+                <span asp-validation-for="AccumulatedStartup" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BlockAdvantage" class="control-label"></label>
+                <input asp-for="BlockAdvantage" class="form-control" />
+                <span asp-validation-for="BlockAdvantage" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </div>
+</div>
