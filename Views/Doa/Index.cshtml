@@ -89,7 +89,7 @@
                 <td>@Html.DisplayFor(modelItem => character.Name)</td>
                 <td>
                     <div class="button-container">
-                        <a asp-action="CalculateUnholdables" asp-route-id="@character.Id" class="character-action-button calculate-unholdables-button">
+                        <a asp-action="CalculateUnholdables" asp-route-characterId="@character.Id" class="character-action-button calculate-unholdables-button">
                             Calculate Unholdables
                         </a>
 

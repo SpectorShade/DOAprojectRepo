@@ -16,9 +16,13 @@
         <select name="characterId" id="characterId" class="form-control" required>
             @foreach (var character in (List<Character>)ViewBag.Characters)
             {
-                <option value="@character.Id">@character.Name</option>
+                <option value="@character.Id" selected="@(character.Id == (int?)ViewBag.SelectedCharacterId)">
+                    @character.Name
+                </option>
             }
         </select>
+
+
     </div>
     <div class="form-group">
         <label for="frameAdvantage">Frame Advantage</label>
@@ -51,28 +55,52 @@
             {
                 <tr>
                     <td>
-                        @foreach (var move in combination)
+                        @{
+                            var reversedMoves = combination.AsEnumerable().Reverse().ToList();
+                        }
+                        @for (int i = 0; i < reversedMoves.Count; i++)
+                        {
+                            @reversedMoves[i].Name
+                            if (i < reversedMoves.Count - 1)
+                            {
+                                @:>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @for (int i = 0; i < reversedMoves.Count; i++)
+                        {
+                            @reversedMoves[i].Input
+                            if (i < reversedMoves.Count - 1)
+                            {
+                                @:>
+                            }
+                        }
+                    </td>
+
+                   @*  <td>
+                        @foreach (var move in combination.AsEnumerable().Reverse())
                         {
                             @move.Name
                             @if (combination.IndexOf(move) < combination.Count - 1)
                             {
-                                @:,
+                                @:>
                             }
                         }
                     </td>
                     <td>
-                        @foreach (var move in combination)
+                        @foreach (var move in combination.AsEnumerable().Reverse())
                         {
                             @move.Input
                             @if (combination.IndexOf(move) < combination.Count - 1)
                             {
-                                @:,
+                                @:>
                             }
                         }
-                    </td>
+            </td>*@
                     <td>
-                        @combination.Last().BlockAdvantage
-                    </td>
+                        @combination.First().BlockAdvantage
+                    </td> 
                 </tr>
             }
         </tbody>

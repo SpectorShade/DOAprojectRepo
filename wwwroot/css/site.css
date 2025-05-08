@@ -9,6 +9,10 @@ body {
     margin-bottom: 60px; /* Margin for sticky footer */
 }
 
+td, th {
+    color: white;
+}
+
 /* Header Styles */
 h1, h2, h3, h4, h5, h6 {
     color: #ff3b3f; /* Bright red headers */
@@ -87,9 +91,7 @@ p, li, span, .content-text {
 .main-container {
     background-color: #000; /* black background */
     color: #ff0000; /* red text */
-    border: 2px solid white; /* white border/margin */
-    padding: 20px; /* add space inside */
-    border-radius: 10px; /* optional: rounded corners */
+    border: 2px solid white;
 }
 
 .footer-custom {
@@ -113,7 +115,6 @@ p, li, span, .content-text {
 }
 
 .footer {
-    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;

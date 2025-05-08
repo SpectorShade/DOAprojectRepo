@@ -357,7 +357,7 @@ namespace _211426_FinalProjectDOA.Controllers
             return RedirectToAction(nameof(AddMove), new { characterId = move.CharacterId });
         }
 
-        public async Task<IActionResult> CalculateUnholdables(int characterId, int frameAdvantage)
+        public async Task<IActionResult> CalculateUnholdables(int? characterId, int frameAdvantage)
         {
             // Store the original frame advantage
             int FrameAdvantage = frameAdvantage;
@@ -365,6 +365,8 @@ namespace _211426_FinalProjectDOA.Controllers
 
             // Populate ViewBag with the list of characters for the dropdown
             ViewBag.Characters = await _context.Characters.ToListAsync();
+
+            ViewBag.SelectedCharacterId = characterId;
 
             // Fetch all moves for the specified character
             var moves = await _context.Moves
@@ -427,8 +429,9 @@ namespace _211426_FinalProjectDOA.Controllers
             {
                 Name = m.Name,
                 Input = m.Input,
-                BlockAdvantage = index == combination.Count - 1 ? m.BlockAdvantage : 0 // Show BlockAdvantage only for the last move
+                BlockAdvantage = index == 0 ? m.BlockAdvantage : 0 // Now show BlockAdvantage for the first move
             }).ToList()).ToList();
+
 
             return View(result);
         }
