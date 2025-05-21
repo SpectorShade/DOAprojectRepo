@@ -68,6 +68,11 @@ namespace _211426_FinalProjectDOA.Controllers
         // GET: Characters/Create
         public IActionResult Create()
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             return View();
         }
         [HttpPost]
@@ -108,6 +113,11 @@ namespace _211426_FinalProjectDOA.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -125,6 +135,11 @@ namespace _211426_FinalProjectDOA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Picture,Name,Moves")] Character fighter)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (id != fighter.Id)
             {
                 return NotFound();
@@ -159,6 +174,11 @@ namespace _211426_FinalProjectDOA.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -205,6 +225,11 @@ namespace _211426_FinalProjectDOA.Controllers
 
         public IActionResult AddMove(int characterId)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             // Get character information to display on the page
             var character = _context.Characters.FirstOrDefault(c => c.Id == characterId);
             if (character == null)
@@ -223,6 +248,11 @@ namespace _211426_FinalProjectDOA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddMove(Move item)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (ModelState.IsValid)
             {
           
@@ -247,6 +277,11 @@ namespace _211426_FinalProjectDOA.Controllers
         // GET: EditMove
         public async Task<IActionResult> EditMove(int? id)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -265,6 +300,11 @@ namespace _211426_FinalProjectDOA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditMove(int id, [Bind("Id,Name,Input,Startup,Active,Recovery,AccumulatedStartup,BlockAdvantage,CharacterId")] Move move)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid(); 
+            }
             if (id != move.Id)
             {
                 return NotFound();
@@ -322,6 +362,11 @@ namespace _211426_FinalProjectDOA.Controllers
         // GET: DeleteMove
         public async Task<IActionResult> DeleteMove(int? id)
         {
+            var userEmail = User.Identity.Name;
+            if (userEmail != "spectoradmin@role.com")
+            {
+                return Forbid();
+            }
             if (id == null)
             {
                 return NotFound();
@@ -359,16 +404,12 @@ namespace _211426_FinalProjectDOA.Controllers
 
         public async Task<IActionResult> CalculateUnholdables(int? characterId, int frameAdvantage)
         {
-            // Store the original frame advantage
             int FrameAdvantage = frameAdvantage;
-            int RemainingAdvantage = FrameAdvantage;
 
-            // Populate ViewBag with the list of characters for the dropdown
             ViewBag.Characters = await _context.Characters.ToListAsync();
-
             ViewBag.SelectedCharacterId = characterId;
+            ViewBag.FrameAdvantage = frameAdvantage;
 
-            // Fetch all moves for the specified character
             var moves = await _context.Moves
                 .Where(m => m.CharacterId == characterId)
                 .ToListAsync();
@@ -379,67 +420,86 @@ namespace _211426_FinalProjectDOA.Controllers
                 return View(new List<List<MoveVM>>());
             }
 
-            // List to store valid move combinations
             var validCombinations = new List<List<Move>>();
 
-            // Iterate through all moves as potential starting points
             foreach (var move in moves)
             {
-                // **Step 1**: Handle the first move check
-                if (move.Startup + move.AccumulatedStartup == RemainingAdvantage - 1)
+                // Skip move if it's not allowed as first:
+                if (
+                    move.Active == 0 || // previous rule: 0 Active can't start
+                    move.Name.Contains("(Hold)") || // rule 1
+                    (move.Input.EndsWith("T") && !move.Name.Contains("(Offensive Hold)")) // rule 2
+                )
                 {
-                    validCombinations.Add(new List<Move> { move });
-                    continue; // Move on to the next move in the list
+                    continue;
                 }
 
-                // **Step 2**: Handle multi-move combinations
-                var currentCombination = new List<Move> { move };
-                RemainingAdvantage = FrameAdvantage - (move.Startup + move.AccumulatedStartup); // Deduct only startup + accumulatedstartup
+                int initialCost = move.Startup + move.AccumulatedStartup;
+                int remaining = FrameAdvantage - initialCost;
 
-                // Try adding additional moves in sequence
-                foreach (var nextMove in moves)
+                var currentPath = new List<Move> { move };
+
+                if (remaining == 1)
                 {
-                    // Check if the next move exceeds RemainingAdvantage
-                    if (nextMove.Startup + nextMove.AccumulatedStartup > RemainingAdvantage - 1)
+                    // Only add single-move combos if allowed
+                    if (!IsRestrictedSingle(move))
                     {
-                        // If it exceeds, reset and break out of this combination attempt
-                        RemainingAdvantage = FrameAdvantage;
-                        currentCombination.Clear();
-                        break;
-                    }
-
-                    // Add the next move to the combination
-                    currentCombination.Add(nextMove);
-                    RemainingAdvantage -= nextMove.Startup + nextMove.Active + nextMove.Recovery + nextMove.AccumulatedStartup;
-
-                    // If the next move matches the condition, save the combination
-                    if (RemainingAdvantage == 1 && IsStrike(nextMove))
-                    {
-                        validCombinations.Add(new List<Move>(currentCombination));
-                        break; // Stop adding moves once the condition is met
+                        validCombinations.Add(new List<Move>(currentPath));
                     }
                 }
-
-                // Reset RemainingAdvantage if no valid combination found
-                RemainingAdvantage = FrameAdvantage;
+                else
+                {
+                    FindCombinationsRecursive(moves, remaining, currentPath, validCombinations);
+                }
             }
 
-            // Transform valid combinations into MoveVMs for the view
             var result = validCombinations.Select(combination => combination.Select((m, index) => new MoveVM
             {
                 Name = m.Name,
                 Input = m.Input,
-                BlockAdvantage = index == 0 ? m.BlockAdvantage : 0 // Now show BlockAdvantage for the first move
+                BlockAdvantage = index == 0 ? m.BlockAdvantage : 0
             }).ToList()).ToList();
-
 
             return View(result);
         }
 
-        // Method to determine if a move is a strike
-        private bool IsStrike(Move move)
+        // Prevent invalid single-move routes
+        private bool IsRestrictedSingle(Move move)
         {
-            return move.Input.Contains("P") || move.Input.Contains("K");
+            bool isHold = move.Name.Contains("(Hold)");
+            bool endsWithT = move.Input.EndsWith("T");
+            bool isOffensiveHold = move.Name.Contains("(Offensive Hold)");
+
+            if (isHold)
+                return true;
+
+            if (endsWithT && !isOffensiveHold)
+                return true;
+
+            return false;
+        }
+
+        private void FindCombinationsRecursive(List<Move> allMoves, int remaining, List<Move> currentPath, List<List<Move>> results)
+        {
+            foreach (var move in allMoves)
+            {
+                int cost = move.Startup + move.Active + move.Recovery + move.AccumulatedStartup + 1;
+
+                if (cost > remaining - 1)
+                    continue;
+
+                var newPath = new List<Move>(currentPath) { move };
+                int newRemaining = remaining - cost;
+
+                if (newRemaining == 1)
+                {
+                    results.Add(newPath);
+                }
+                else if (newRemaining > 1)
+                {
+                    FindCombinationsRecursive(allMoves, newRemaining, newPath, results);
+                }
+            }
         }
 
     }
