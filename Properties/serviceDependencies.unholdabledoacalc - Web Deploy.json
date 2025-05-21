@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/unholdabledoacalc/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsDOA5con_377FD3C382",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/doaserver/databases/doa5Db",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:DOA5con"
+    },
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/unholdabledoacalc/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsUserContextConnection_5F8D444877",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/doaserver/databases/doa5User",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:UserContextConnection"
+    }
+  }
+}
