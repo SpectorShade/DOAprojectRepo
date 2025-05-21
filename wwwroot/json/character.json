@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "Picture": "f4c753fd-8272-2980-csdf",
+    "Name": "Bayman"
+  },
+  {
+    "Id": 2,
+    "Picture": "cf4e6e78-6a7a-4567-trfg",
+    "Name": "Leon"
+  },
+  {
+    "Id": 3,
+    "Picture": "d39c0508-6cad-6563-csrj",
+    "Name": "Akira"
+  },
+  {
+    "Id": 4,
+    "Picture": "9fd6a9ff-c8dc-7867-lksm",
+    "Name": "Momiji"
+  },
+  {
+    "Id": 5,
+    "Picture": "b162871c-4e59-2456-qusd",
+    "Name": "Bass"
+  },
+  {
+    "Id": 6,
+    "Picture": "a1b2c3d4-e5f6-7890-abcd",
+    "Name": "Rachel"
+  },
+  {
+    "Id": 7,
+    "Picture": "b2c3d4e5-f6a7-8901-bcde",
+    "Name": "Kasumi"
+  },
+  {
+    "Id": 8,
+    "Picture": "c3d4e5f6-a7b8-9012-cdef",
+    "Name": "Hitomi"
+  }
+]

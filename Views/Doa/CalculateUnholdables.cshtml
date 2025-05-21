@@ -9,6 +9,9 @@
 </head>
 
 <h1>Calculate Unholdables</h1>
+<p>*Displayed moves are ordered by ender.</p>
+<p>*If your ender is held make sure it's landing on the first active frame.  Distance can interfere.</p>
+<p>*In relation to this, if the opponent is too far away for some of the displayed unholdables to land, consider checking unholdables in adjacent frames.</p>
 
 <form method="get" asp-action="CalculateUnholdables">
     <div class="form-group">
@@ -26,7 +29,7 @@
     </div>
     <div class="form-group">
         <label for="frameAdvantage">Frame Advantage</label>
-        <input type="number" name="frameAdvantage" id="frameAdvantage" class="form-control" required />
+        <input type="number" name="frameAdvantage" id="frameAdvantage" class="form-control" value="@ViewBag.FrameAdvantage" required />
     </div>
     <div class="form-group">
         <input type="submit" value="Calculate" class="btn btn-primary" />

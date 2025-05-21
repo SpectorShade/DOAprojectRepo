@@ -52,11 +52,14 @@
 <h1>Character Index</h1>
 
 <p>
-    @* @if (User.IsInRole("Admin"))
+   @if (User.Identity.IsAuthenticated)
     {
-
-    } *@
-    <a asp-action="Create">Create New Character</a>
+        var email = User.Identity.Name;
+        if (email == "spectoradmin@role.com")
+        {
+         <a asp-action="Create">Create New Character</a>
+        }
+    }
 </p>
 
 <!-- Search form -->
@@ -92,24 +95,24 @@
                         <a asp-action="CalculateUnholdables" asp-route-characterId="@character.Id" class="character-action-button calculate-unholdables-button">
                             Calculate Unholdables
                         </a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var email = User.Identity.Name;
+                            if (email == "spectoradmin@role.com")
+                            {
+                                <a asp-action="AddMove" asp-route-characterId="@character.Id" class="character-action-button">
+                                    Add Move
+                                </a>
 
+                                <a asp-action="Edit" asp-route-id="@character.Id" class="character-action-button">
+                                    Edit
+                                </a>
 
-                        @* @if (User.IsInRole("Admin"))
-                    {
-
-                    } *@
-
-                        <a asp-action="AddMove" asp-route-characterId="@character.Id" class="character-action-button">
-                            Add Move
-                        </a>
-
-                        <a asp-action="Edit" asp-route-id="@character.Id" class="character-action-button">
-                            Edit
-                        </a>
-
-                        <a asp-action="Delete" asp-route-id="@character.Id" class="character-action-button">
-                            Delete
-                        </a>
+                                <a asp-action="Delete" asp-route-id="@character.Id" class="character-action-button">
+                                    Delete
+                                </a>
+                            }
+                        }
                     </div>
                 </td>
             </tr>

@@ -1,50 +1,301 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<_211426_FinalProjectDOA.Areas.Identity.Data.User> UserManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"]</title>
+    <link href="css/site.css" rel="stylesheet" />
     <style>
+        nav {
+            margin-top: 5vh;
+        }
+        .main-container {
+            border: 0px;
+        }
         body {
-            background-color: black; /* Set the background to black */
-            color: white; /* Set text color to white for contrast */
+            background-color: black;
+            color: white;
             margin: 0;
-            height: 100vh;
+            width: 100vw;
             display: flex;
-            justify-content: center; /* Center content horizontally */
-            align-items: center; /* Center content vertically */
-            text-align: center; /* Center the text */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
 
         .image-container {
-            max-width: 90%; /* Ensure the image doesn't overflow */
-            max-height: 90%; /* Ensure the image doesn't overflow */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-            .image-container img {
-                width: 100%; /* Make the image take full width */
-                height: auto; /* Keep the aspect ratio */
-                max-width: 600px; /* Limit the max width */
+        .image-container img {
+            margin-top: 5vh;
+            width: 100%;
+            height: auto;
+            max-width: 550px;
+        }
+
+        .carousel {
+            max-width: 550px;
+            margin-top: 5vh;
+        }
+
+            .carousel img {
+                width: 100%;
+                height: auto;
             }
 
-        h1 {
-            font-size: 3rem;
-            margin: 20px 0;
+        /* Font header */
+        .font-header {
+            font-family: 'Staatliches', sans-serif;
+            font-size: 2rem;
+            color: #ff3b3f;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
         }
 
-        p {
-            font-size: 1.5rem;
+        /* Color swatches */
+        .color-box {
+            width: 150px;
+            height: 50px;
+            margin: 0.5rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
         }
+
+        /* QR containers */
+        .qr-container {
+            margin-top: 1.5rem;
+        }
+
+        /* Font samples */
+        .font-sample {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Fonts individually */
+        .courier {
+            font-family: 'Courier Prime', serif;
+            color: white;
+        }
+
+        .roboto {
+            font-family: 'Roboto', sans-serif;
+            color: white;
+        }
+
+        .staatliches {
+            font-family: 'Staatliches', sans-serif;
+            color: white;
+        }
+
+        .css-carousel {
+            position: relative;
+            width: 100%;
+        }
+
+            .css-carousel input {
+                display: none;
+            }
+
+            .css-carousel .slides {
+                position: relative;
+                overflow: hidden;
+            }
+
+            .css-carousel .slide {
+                position: absolute;
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+                width: 100%;
+            }
+
+                .css-carousel .slide img {
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                }
+
+        #slide1:checked ~ .slides .s1,
+        #slide2:checked ~ .slides .s2,
+        #slide3:checked ~ .slides .s3,
+        #slide4:checked ~ .slides .s4,
+        #slide5:checked ~ .slides .s5,
+        #slide6:checked ~ .slides .s6,
+        #slide7:checked ~ .slides .s7,
+        #slide8:checked ~ .slides .s8,
+        #slide9:checked ~ .slides .s9,
+        #slide10:checked ~ .slides .s10,
+        #slide11:checked ~ .slides .s11 {
+            opacity: 1;
+            position: relative;
+        }
+
+        .css-carousel .nav {
+            text-align: center;
+            margin-top: 1rem;
+            display: block;
+        }
+
+            .css-carousel .nav label {
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                margin: 0 5px;
+                background-color: white;
+                border-radius: 50%;
+                cursor: pointer;
+                opacity: 0.5;
+                transition: opacity 0.2s ease;
+            }
+
+        #slide1:checked ~ .nav label:nth-of-type(1),
+        #slide2:checked ~ .nav label:nth-of-type(2),
+        #slide3:checked ~ .nav label:nth-of-type(3),
+        #slide4:checked ~ .nav label:nth-of-type(4),
+        #slide5:checked ~ .nav label:nth-of-type(5),
+        #slide6:checked ~ .nav label:nth-of-type(6),
+        #slide7:checked ~ .nav label:nth-of-type(7),
+        #slide8:checked ~ .nav label:nth-of-type(8),
+        #slide9:checked ~ .nav label:nth-of-type(9),
+        #slide10:checked ~ .nav label:nth-of-type(10),
+        #slide11:checked ~ .nav label:nth-of-type(11) {
+            opacity: 1;
+        }
+
+        .custom-container {
+            max-width: 120vh;
+            margin-top: 1vh auto;
+            padding: 0 1rem;
+        }
+
+        .custom-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0rem;
+        }
+
+        .custom-col {
+            flex: 1 1 auto;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        
     </style>
 </head>
-<body style="background-color:black">
+<body>
+
     <div class="image-container">
-        <!-- Replace the URL with the path to your image -->
         <img src="images/logo_index.png" alt="Centered Image">
     </div>
+
+  @*   @if (User.Identity.IsAuthenticated)
+    {
+        var email = User.Identity.Name;
+        if (email == "spectoradmin@role.com")
+        {
+            <div style="position: fixed; top: 10px; right: 10px; z-index: 9999;">
+                <img src="images/fotoid.jpg" alt="Admin Reference" class="img-fluid" style="max-width: 150px;" />
+            </div>
+        }
+    } *@
+
+    <div class="custom-container">
+        <div class="custom-row">
+
+
+        <!-- Left Side -->
+        
+            <div class="custom-col col-md-3">
+                <div class="font-header">Color Palette</div>
+
+                <div class="color-box" style="background-color: #ff3b3f; color: black;">#ff3b3f</div>
+                <div class="color-box" style="background-color: #000000; color: white;">#000000</div>
+                <div class="color-box" style="background-color: #ffffff; color: black;">#ffffff</div>
+
+                <div class="font-header mt-4">App Link</div>
+                <div class="qr-container">
+                    <img src="images/SiteCode2.png" alt="App QR Code" width="150">
+                </div>
+            </div>
+        
+
+        <!-- Carousel Center -->
+            <div class="custom-col col-md-6">
+            <p style="margin-top:5vh;">How to figure out Advantage</p>
+            <div class="css-carousel mx-auto" style="max-width: 550px;">
+                <input type="radio" name="slides" id="slide1" checked>
+                <input type="radio" name="slides" id="slide2">
+                <input type="radio" name="slides" id="slide3">
+                <input type="radio" name="slides" id="slide4">
+                <input type="radio" name="slides" id="slide5">
+                <input type="radio" name="slides" id="slide6">
+                <input type="radio" name="slides" id="slide7">
+                <input type="radio" name="slides" id="slide8">
+                <input type="radio" name="slides" id="slide9">
+                <input type="radio" name="slides" id="slide10">
+                <input type="radio" name="slides" id="slide11">
+
+                <div class="slides">
+                    <div class="slide s1"><img src="images/carrusel1.png" alt="Slide 1"></div>
+                    <div class="slide s2"><img src="images/carrusel2.png" alt="Slide 2"></div>
+                    <div class="slide s3"><img src="images/carrusel3.png" alt="Slide 3"></div>
+                    <div class="slide s4"><img src="images/carrusel4.png" alt="Slide 4"></div>
+                    <div class="slide s5"><img src="images/carrusel5.png" alt="Slide 5"></div>
+                    <div class="slide s6"><img src="images/carrusel6.png" alt="Slide 6"></div>
+                    <div class="slide s7"><img src="images/carrusel7.png" alt="Slide 7"></div>
+                    <div class="slide s8"><img src="images/carrusel8.png" alt="Slide 8"></div>
+                    <div class="slide s9"><img src="images/carrusel9.png" alt="Slide 9"></div>
+                    <div class="slide s10"><img src="images/carrusel10.png" alt="Slide 10"></div>
+                    <div class="slide s11"><img src="images/carrusel11.png" alt="Slide 11"></div>
+                </div>
+
+                <div class="nav">
+                    <label for="slide1"></label>
+                    <label for="slide2"></label>
+                    <label for="slide3"></label>
+                    <label for="slide4"></label>
+                    <label for="slide5"></label>
+                    <label for="slide6"></label>
+                    <label for="slide7"></label>
+                    <label for="slide8"></label>
+                    <label for="slide9"></label>
+                    <label for="slide10"></label>
+                    <label for="slide11"></label>
+                </div>
+            </div>
+            </div>
+
+
+        <!-- Right Side -->
+            <div class="custom-col col-md-3">
+                <div class="font-header">Fonts Used</div>
+
+                <div class="font-sample staatliches">Staatliches</div>
+                <div class="font-sample courier">Courier Prime</div>
+                <div class="font-sample roboto">Roboto</div>
+
+                <div class="font-header mt-4">GitHub Repository</div>
+                <div class="qr-container">
+                    <img src="images/Cloud.png" alt="GitHub QR Code" width="150">
+                </div>
+            </div>
+
+    </div>
+</div>
 </body>
 </html>

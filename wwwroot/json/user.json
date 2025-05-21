@@ -1,0 +1,62 @@
+[
+  {
+    "Id": "698-4815cac66215",
+    "Nombre": null,
+    "Apellido": null,
+    "UserName": "newexample2",
+    "NormalizedUserName": "NEWEXAMPLE2",
+    "Email": "newexample2@example.com",
+    "NormalizedEmail": "NEWEXAMPLE2@EXAMPLE.COM",
+    "EmailConfirmed": false,
+    "PasswordHash": "AQAAAAEAACcQAAAAEGf8H5G1q3v+oJ1sYXQ7s1nZQvWxN6oMfnx2NA==",
+    "SecurityStamp": "RD5VCLVLIOHDYUI27F9G",
+    "ConcurrencyStamp": "5add09ea-3c2a-4b3b-bf4e-8cddf1a1e111",
+    "PhoneNumber": null,
+    "PhoneNumberConfirmed": false
+  },
+  {
+    "Id": "662957d2-dc37-4d5f-9c91-2b2e876b8934",
+    "Nombre": null,
+    "Apellido": null,
+    "UserName": "spectoradmin",
+    "NormalizedUserName": "SPECTORADMIN",
+    "Email": "spectoradmin@example.com",
+    "NormalizedEmail": "SPECTORADMIN@EXAMPLE.COM",
+    "EmailConfirmed": false,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKjB9HVjG3T9eJ2eFasG4b3MJwRt7Z==",
+    "SecurityStamp": "KKDIBQPP7MGN89FA3C1P",
+    "ConcurrencyStamp": "e563805e-9b01-4dd2-b4a9-c2fbd8dcce66",
+    "PhoneNumber": null,
+    "PhoneNumberConfirmed": false
+  },
+  {
+    "Id": "e73f2b3b-2ec0-4a3a-8f76-91dcab95b5d3",
+    "Nombre": null,
+    "Apellido": null,
+    "UserName": "newexample@example.com",
+    "NormalizedUserName": "NEWEXAMPLE",
+    "Email": "newexample@example.com",
+    "NormalizedEmail": "NEWEXAMPLE@EXAMPLE.COM",
+    "EmailConfirmed": false,
+    "PasswordHash": "AQAAAAEAACcQAAAAEKfiW5CfX0KrG8GpFeHvZzz==",
+    "SecurityStamp": "B4ANQFTBBUOCXK32ZZ9D",
+    "ConcurrencyStamp": "5bd1b778-0510-4036-8447-293c5e830999",
+    "PhoneNumber": null,
+    "PhoneNumberConfirmed": false
+  },
+  {
+    "Id": "feec759f-83ad-497b-90db-2fca3cc3e3b6",
+    "Nombre": null,
+    "Apellido": null,
+    "UserName": "email@example.com",
+    "NormalizedUserName": "EMAIL",
+    "Email": "email@example.com",
+    "NormalizedEmail": "EMAIL@EXAMPLE.COM",
+    "EmailConfirmed": false,
+    "PasswordHash": "AQAAAAEAACcQAAAAEMJGKz9GrM0lVvUYlC6Qx8==",
+    "SecurityStamp": "42KGI2KASJOG5O3MD7NZ",
+    "ConcurrencyStamp": "48926633-7012-4a8f-b89e-cf1f39f32ae4",
+    "PhoneNumber": null,
+    "PhoneNumberConfirmed": false
+  }
+]
